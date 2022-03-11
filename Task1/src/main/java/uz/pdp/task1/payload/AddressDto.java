@@ -17,5 +17,5 @@ public class AddressDto {
     private String street;
 
     @NotNull(message = "HomeNumber can not be empty")
-    private int homeNumber;
+    private Integer homeNumber;
 }

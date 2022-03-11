@@ -16,6 +16,7 @@ public class DepartmentDto {
     @NotNull(message = "Name can not be empty")
     private String name;
 
+    @NotNull(message = "Company can not be empty")
     private CompanyDto companyDto;
 
 }

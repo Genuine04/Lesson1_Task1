@@ -4,18 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.task1.entity.Address;
+import uz.pdp.task1.payload.AddressDto;
 import uz.pdp.task1.payload.ApiResponse;
 import uz.pdp.task1.service.AddressService;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/address")
 public class AddressController {
 
-    ApiResponse responseApi = new ApiResponse();
 
     @Autowired
     AddressService addressService;
@@ -34,15 +37,15 @@ public class AddressController {
 
 
     @PostMapping()
-    public HttpEntity<?> post(@Valid @RequestBody Address address) {
-        ApiResponse responseApi = addressService.postAddress(address);
+    public HttpEntity<?> post(@Valid @RequestBody AddressDto addressDto) {
+        ApiResponse responseApi = addressService.postAddress(addressDto);
         return ResponseEntity.status(201).body(responseApi);
     }
 
 
     @PutMapping("/{id}")
-    public HttpEntity<?> put(@Valid @RequestBody Address address, @PathVariable Integer id){
-        ApiResponse apiResponse = addressService.putAddress(address, id);
+    public HttpEntity<?> put(@Valid @RequestBody AddressDto addressDto, @PathVariable Integer id){
+        ApiResponse apiResponse = addressService.putAddress(addressDto, id);
         return ResponseEntity.status(apiResponse.isSuccess()? 202:404).body(apiResponse);
     }
 
@@ -51,5 +54,18 @@ public class AddressController {
     public HttpEntity<?> delete(@PathVariable Integer id){
         ApiResponse apiResponse = addressService.deleteAddress(id);
         return ResponseEntity.status(apiResponse.isSuccess()? 202:409).body(apiResponse);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }

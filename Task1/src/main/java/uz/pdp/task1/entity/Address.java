@@ -20,6 +20,6 @@ public class Address {
     private String street;
 
     @Column(nullable = false)
-    private int homeNumber;
+    private Integer homeNumber;
 
 }

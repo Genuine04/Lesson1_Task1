@@ -19,8 +19,10 @@ public class WorkerDto {
     @NotNull(message = "PhoneNumber can not be empty")
     private String phoneNumber;
 
+    @NotNull(message = "Address can not be empty")
     private AddressDto addressDto;
 
+    @NotNull(message = "Name can not be empty")
     private DepartmentDto departmentDto;
 
 }
