@@ -10,17 +10,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Company {
+public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String corpName;
+    private String name;
 
-    @Column(nullable = false)
-    private String directorName;
+    @Column(nullable = false, unique = true)
+    private String phoneNumber;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Address address;
+
+    @ManyToOne(optional = false)
+    private Department department;
 }
