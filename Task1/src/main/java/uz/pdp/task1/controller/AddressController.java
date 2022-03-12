@@ -53,7 +53,7 @@ public class AddressController {
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id){
         ApiResponse apiResponse = addressService.deleteAddress(id);
-        return ResponseEntity.status(apiResponse.isSuccess()? 202:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()? 202:404).body(apiResponse);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
