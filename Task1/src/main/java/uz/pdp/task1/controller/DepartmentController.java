@@ -35,7 +35,7 @@ public class DepartmentController {
 
 
     @PostMapping
-    public HttpEntity<?> post(@Valid @RequestBody DepartmentDto departmentDto, @PathVariable Integer id){
+    public HttpEntity<?> post(@Valid @RequestBody DepartmentDto departmentDto){
         ApiResponse apiResponse = departmentService.postDepartment(departmentDto);
         return ResponseEntity.status(201).body(apiResponse);
     }

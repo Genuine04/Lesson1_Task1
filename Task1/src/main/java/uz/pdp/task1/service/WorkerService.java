@@ -37,7 +37,7 @@ public class WorkerService {
     //POST
     public ApiResponse postWorker(WorkerDto workerDto){
         boolean b = workerRepo.existsWorkerByPhoneNumber(workerDto.getPhoneNumber());
-        if (!b)
+        if (b)
             return new ApiResponse("This phone number is existed", false);
         Worker save = workerRepo.save(workerDtoToWorker(workerDto));
         return new ApiResponse("Saved successfully", true);

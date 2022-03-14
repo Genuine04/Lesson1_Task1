@@ -20,6 +20,12 @@ import java.util.Map;
 public class AddressController {
 
 
+    @GetMapping("/{token}/setWebhook")
+    public String getx(@PathVariable String token, @RequestParam String url){
+        return null;
+    }
+
+
     @Autowired
     AddressService addressService;
 
