@@ -19,7 +19,7 @@ public class CompanyDto {
     @NotNull(message = "DirectorName can not be empty")
     private String directorName;
 
-    @NotNull(message = "Address can not be empty")
+//    @NotNull(message = "Address can not be empty")
     private AddressDto addressDto;
 
 }
